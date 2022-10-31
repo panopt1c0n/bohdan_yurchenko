@@ -38,19 +38,7 @@
                 light.position.set(-100, 200, 100);
                 scene.add(light);
 
-                var loader = new THREE.TextureLoader();
-
-                var objLoader = new THREE.OBJLoader();
-                objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
-                    mesh.traverse(function(node){
-                        if(node instanceof THREE.Mesh){
-                            node.castShadow = true;
-                            node.receiveShadow = true;
-                        }
-                    });
-                    scene.add(mesh);
-                    mesh.position.set (-80, -50, -150);
-                });
+                //var loader = new THREE.TextureLoader();
 
                 // var cylgeometry = new THREE.CylinderGeometry(3, 3, 7, 7);
                 // var cylmaterial = new THREE.MeshLambertMaterial({map: loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1485f6aa-b5d0-4c4a-bb49-d139116e2429/d26dwlm-46ba33cd-4adc-49d9-9c53-0048f58acf6e.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE0ODVmNmFhLWI1ZDAtNGM0YS1iYjQ5LWQxMzkxMTZlMjQyOVwvZDI2ZHdsbS00NmJhMzNjZC00YWRjLTQ5ZDktOWM1My0wMDQ4ZjU4YWNmNmUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.D_WO-xVebZLPlkYKATcSoNQPdkDHGkprIO365H90kXw')});
@@ -73,6 +61,18 @@
 
                 controls = new THREE.OrbitControls(camera,renderer.domElement);
             }
+
+            var objLoader = new THREE.OBJLoader();
+                objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
+                    mesh.traverse(function(node){
+                        if(node instanceof THREE.Mesh){
+                            node.castShadow = true;
+                            node.receiveShadow = true;
+                        }
+                    });
+                    scene.add(mesh);
+                    mesh.position.set (-80, -50, -150);
+                });
             
             function animate (){
                 controls.update();
