@@ -4,8 +4,8 @@
 </head>
 <body>
     <script src="https://threejs.org/build/three.js"></script>
-    <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script>
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xdddddd);
@@ -15,6 +15,9 @@
         camera.position.x = 800;
         camera.position.y = 100;
         camera.position.z = 1000;
+
+        let controls = new THREE.OrbitControls(camera);
+        controls.addEventListener('change', renderer);
 
         hlight = new THREE.AmbientLight (0x404040,100);
         scene.add(hlight);
@@ -42,11 +45,16 @@
 
         let loader = new THREE.GLTFLoader();
         loader.load('scene.gltf', function(gltf){
-        car = gltf.scene.children[0];
-        car.scale.set(0.5,0.5,0.5);
-        scene.add(gltf.scene);
-        animate();
+            car = gltf.scene.children[0];
+            car.scale.set(0.5,0.5,0.5);
+            scene.add(gltf.scene);
+            animate();
         });
+
+        function animate() {
+            renderer.render(scene,camera);
+            requestAnimationFrame(animate);
+        }
 
         renderer = new THREE.WebGLRenderer({antialias:true});
         renderer.setSize(window.innerWidth,window.innerHeight);
