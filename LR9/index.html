@@ -18,12 +18,11 @@
         var scene = new THREE.Scene();
 
         var lightOne = new THREE.DirectionalLight(0xffff, 0.5, 1000);
-        lightOne.target = conemesh;
         scene.add(lightOne);
 
         var loader = new THREE.GLTFLoader();
             loader.load('scene.gltf', function(gltf){
-                scene.add(gltf.scene);
+                scene.add(gltf);
             });
 
         requestAnimationFrame(render);
