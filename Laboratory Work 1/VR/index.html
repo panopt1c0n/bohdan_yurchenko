@@ -8,9 +8,9 @@
         <a-asset-item id="pyr_model" src="pyramids.obj"></a-asset-item>
     </a-assets>
     <a-sky color="white" scale="10 10 10"></a-sky>
-    <a-camera position="0 1.6 15" fov="65"></a-camera>
+    <a-camera position="0 1.6 15" fov="65" animation="property: position; to: 0 1.6 10; dur: 2000; easing: linear; loop: true"></a-camera>
     
-      <a-entity obj-model="obj: #pyr_model" material="src: brick_diffuse.jpg" scale="0.01 0.01 0.01"></a-entity>
+      <a-entity obj-model="obj: #pyr_model" material="src: brick_diffuse.jpg" scale="0.01 0.01 0.01" ></a-entity>
 
     </a-scene>
 
