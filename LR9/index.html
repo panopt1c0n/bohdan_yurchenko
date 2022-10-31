@@ -1,4 +1,4 @@
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
 </head>
@@ -7,9 +7,7 @@
     <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script>
-       let scene, camera, renderer;
-
-        function init() {
+            var scene, camera, renderer;
 
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0xdddddd);
@@ -48,17 +46,16 @@
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
-            let loader = new THREE.GLTFLoader();
+            var loader = new THREE.GLTFLoader();
             loader.load('scene.gltf', function(gltf){
                 scene.add(gltf.scene);
                 renderer.render(scene,camera);
             });
-        }
+            
         // function animate() {
         //     renderer.render(scene,camera);
         //     requestAnimationFrame(animate);
         // }
-        init();
     </script>
 </body>
 </html>
