@@ -1,37 +1,62 @@
-<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
-    <canvas id="Canvas"></canvas>
     <script src="https://threejs.org/build/three.js"></script>
     <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script>
-        var renderer = new THREE.WebGLRenderer(
-        {canvas: document.getElementById('Canvas'), antialias: true});
-        renderer.setClearColor(0x333333);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        var camera=new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 20000);
-        camera.position.z = 500;
-
         var scene = new THREE.Scene();
 
-        var lightOne = new THREE.DirectionalLight(0xffff, 0.5, 1000);
-        scene.add(lightOne);
+        var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+        camera.position.z = 200;
 
-        var loader = new THREE.GLTFLoader();
-            loader.load('scene.gltf', function(gltf){
-                scene.add(gltf);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+        controls.enableZoom = true;
+
+        var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+        keyLight.position.set(-100, 0, 100);
+
+        var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
+        fillLight.position.set(100, 0, 100);
+
+        var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        backLight.position.set(100, 0, -100).normalize();
+
+        scene.add(keyLight);
+        scene.add(fillLight);
+        scene.add(backLight);
+
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.load('Swing_Chair.mtl', function (materials) {
+
+            materials.preload();
+
+            var objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.load('Swing_Chair.obj', function (object) {
+
+                scene.add(object);
+                object.position.y -= 60;
+
             });
 
-        requestAnimationFrame(render);
-        
-        function render() {
-            renderer.render(scene, camera);
-            requestAnimationFrame(render);
-        }
+        });
 
+        var animate = function () {
+            requestAnimationFrame( animate );
+            controls.update();
+            renderer.render(scene, camera);
+        };
+
+        animate();
     </script>
 </body>
 </html>
