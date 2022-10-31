@@ -62,17 +62,41 @@
                 controls = new THREE.OrbitControls(camera,renderer.domElement);
             }
 
-            var objLoader = new THREE.OBJLoader();
-                objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
-                    mesh.traverse(function(node){
-                        if(node instanceof THREE.Mesh){
-                            node.castShadow = true;
-                            node.receiveShadow = true;
-                        }
-                    });
-                    scene.add(mesh);
-                    mesh.position.set (-80, -50, -150);
-                });
+            // var objLoader = new THREE.OBJLoader();
+            //     objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
+            //         mesh.traverse(function(node){
+            //             if(node instanceof THREE.Mesh){
+            //                 node.castShadow = true;
+            //                 node.receiveShadow = true;
+            //             }
+            //         });
+            //         scene.add(mesh);
+            //         mesh.position.set (-80, -50, -150);
+            //     });
+            
+            //     onst loader = new THREE.ObjectLoader();
+
+            loader.load(
+                // resource URL
+                "DAFT_PUNK_HELMETS.obj",
+
+                // onLoad callback
+                // Here the loaded data is assumed to be an object
+                function ( obj ) {
+                    // Add the loaded object to the scene
+                    scene.add( obj );
+                },
+
+                // onProgress callback
+                function ( xhr ) {
+                    console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+                },
+
+                // onError callback
+                function ( err ) {
+                    console.error( 'An error happened' );
+                }
+            );
             
             function animate (){
                 controls.update();
