@@ -8,6 +8,7 @@
 	</head>
         <script src="https://threejs.org/build/three.js"></script>
         <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
     <body>
 		<script>
             init();
@@ -37,15 +38,44 @@
                 light.position.set(-100, 200, 100);
                 scene.add(light);
 
-                var cylgeometry = new THREE.CylinderGeometry(3, 3, 7, 7);
-                var cylmaterial = new THREE.MeshLambertMaterial();
-                var cylmesh = new THREE.Mesh(cylgeometry, cylmaterial);
-                cylmesh.position.set(0.9, -5, -6);
-                scene.add(cylmesh);
+                var loader = new THREE.TextureLoader();
+
+                var objLoader = new THREE.OBJLoader();
+                objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
+                    mesh.traverse(function(node){
+                        if(node instanceof THREE.Mesh){
+                            node.castShadow = true;
+                            node.receiveShadow = true;
+                        }
+                    });
+                    scene.add(mesh);
+                    mesh.position.set (-80, -50, -150);
+                });
+
+                // var cylgeometry = new THREE.CylinderGeometry(3, 3, 7, 7);
+                // var cylmaterial = new THREE.MeshLambertMaterial({map: loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1485f6aa-b5d0-4c4a-bb49-d139116e2429/d26dwlm-46ba33cd-4adc-49d9-9c53-0048f58acf6e.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE0ODVmNmFhLWI1ZDAtNGM0YS1iYjQ5LWQxMzkxMTZlMjQyOVwvZDI2ZHdsbS00NmJhMzNjZC00YWRjLTQ5ZDktOWM1My0wMDQ4ZjU4YWNmNmUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.D_WO-xVebZLPlkYKATcSoNQPdkDHGkprIO365H90kXw')});
+                // var cylmesh = new THREE.Mesh(cylgeometry, cylmaterial);
+                // cylmesh.position.set(0.9, -5, -6);
+                // scene.add(cylmesh);
+
+                // var cubematerials = [
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm1.staticflickr.com/854/42936929215_efa87c8a9a_b.jpg')}),
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm1.staticflickr.com/514/18832759790_bed1aeece8_b.jpg')}),
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm7.staticflickr.com/6140/5934453114_3675350a78_b.jpg')}),
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm3.static.flickr.com/2342/2269094999_6ac65c0947.jpg')}),
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://live.staticflickr.com/1757/41821018565_614db58ddc_b.jpg')}),
+                //     new THREE.MeshBasicMaterial({map: loader.load('https://live.staticflickr.com/3103/2420240470_bc0bb7a260.jpg')}),
+                // ];
+                // var cubegeometry = new THREE.BoxGeometry(3, 4, 3, 4);
+                // var cubemesh = new THREE.Mesh(cubegeometry, cubematerials);
+                // cubemesh.position.set(-1, -3, -2);
+                // scene.add(cubemesh);
 
                 controls = new THREE.OrbitControls(camera,renderer.domElement);
             }
 
+            requestAnimationFrame(render);    
+            
             function animate (){
                 controls.update();
                 renderer.render(scene, camera);
