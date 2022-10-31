@@ -35,13 +35,13 @@
         scene.add(backLight);
 
         var mtlLoader = new THREE.MTLLoader();
-        mtlLoader.load('Swing_Chair.mtl', function (materials) {
+        mtlLoader.load('r2-d2.mtl', function (materials) {
 
             materials.preload();
 
             var objLoader = new THREE.OBJLoader();
             objLoader.setMaterials(materials);
-            objLoader.load('Swing_Chair.obj', function (object) {
+            objLoader.load('r2-d2.obj', function (object) {
 
                 scene.add(object);
                 object.position.y -= 60;
