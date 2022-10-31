@@ -6,11 +6,11 @@
     <a-scene>
     <a-assets>
         <a-asset-item id="pyr_model" src="pyramids.obj"></a-asset-item>
-        <a-asset-item id="pyr_material" src="brick_diffuse.jpg"></a-asset-item>
+        //<a-asset-item id="pyr_material" src="brick_diffuse.jpg"></a-asset-item>
     </a-assets>
     <a-sky color="white" scale="10 10 10"></a-sky>
     
-      <a-entity obj-model="obj: #pyr_model; mtl: #pyr_material" scale="0.01 0.01 0.01"></a-entity>
+      <a-entity obj-model="obj: #pyr_model" scale="0.01 0.01 0.01" material="src: brick_diffuse.jpg"></a-entity>
 
     </a-scene>
 
