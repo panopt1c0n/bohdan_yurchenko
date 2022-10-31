@@ -1,108 +1,45 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<style>
-			body { margin: 0; }
-		</style>
-	</head>
-        <script src="https://threejs.org/build/three.js"></script>
-        <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-        <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
-    <body>
-		<script>
-            init();
-            animate();
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <canvas id="Canvas"></canvas>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+    <script>
+        var renderer = new THREE.WebGLRenderer ({canvas: document.getElementById('Canvas'), antialias: true});
+        renderer.setClearColor(0x333333);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-            function init() {
-                scene = new THREE.Scene();
-                var WIDTH = window.innerWidth, HEIGHT = window.innerHeight;
+        var camera = new THREE.PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1,20000);
 
-                renderer = new THREE.WebGLRenderer({antialias: true});
-                renderer.setSize(WIDTH, HEIGHT);
-                document.body.appendChild(renderer.domElement);
+        var scene = new THREE.Scene();
+        
+        var lightOne = new THREE.AmbientLight(0xfffff, 0.5);
+        scene.add(lightOne);
 
-                camera = new THREE.PerspectiveCamera(45, WIDTH/ HEIGHT, 0.1,20000);
-                camera.position.set(0, 6, 0);
-                scene.add(camera);
-
-                window.addEventListener('resize', function() {
-                    var WIDTH = window.innerWidth, HEIGHT = window.innerHeight;
-                    renderer.setSize(WIDTH, HEIGHT);
-                    camera.aspect = WIDTH / HEIGHT;
-                    camera.updateProjectMatrix();
-                });
-                renderer.setClearColor(0x333F47, 1);
-
-                var light = new THREE.PointLight(0xffffff);
-                light.position.set(-100, 200, 100);
-                scene.add(light);
-
-                //var loader = new THREE.TextureLoader();
-
-                // var cylgeometry = new THREE.CylinderGeometry(3, 3, 7, 7);
-                // var cylmaterial = new THREE.MeshLambertMaterial({map: loader.load('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1485f6aa-b5d0-4c4a-bb49-d139116e2429/d26dwlm-46ba33cd-4adc-49d9-9c53-0048f58acf6e.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE0ODVmNmFhLWI1ZDAtNGM0YS1iYjQ5LWQxMzkxMTZlMjQyOVwvZDI2ZHdsbS00NmJhMzNjZC00YWRjLTQ5ZDktOWM1My0wMDQ4ZjU4YWNmNmUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.D_WO-xVebZLPlkYKATcSoNQPdkDHGkprIO365H90kXw')});
-                // var cylmesh = new THREE.Mesh(cylgeometry, cylmaterial);
-                // cylmesh.position.set(0.9, -5, -6);
-                // scene.add(cylmesh);
-
-                // var cubematerials = [
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm1.staticflickr.com/854/42936929215_efa87c8a9a_b.jpg')}),
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm1.staticflickr.com/514/18832759790_bed1aeece8_b.jpg')}),
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm7.staticflickr.com/6140/5934453114_3675350a78_b.jpg')}),
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://farm3.static.flickr.com/2342/2269094999_6ac65c0947.jpg')}),
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://live.staticflickr.com/1757/41821018565_614db58ddc_b.jpg')}),
-                //     new THREE.MeshBasicMaterial({map: loader.load('https://live.staticflickr.com/3103/2420240470_bc0bb7a260.jpg')}),
-                // ];
-                // var cubegeometry = new THREE.BoxGeometry(3, 4, 3, 4);
-                // var cubemesh = new THREE.Mesh(cubegeometry, cubematerials);
-                // cubemesh.position.set(-1, -3, -2);
-                // scene.add(cubemesh);
-
-                controls = new THREE.OrbitControls(camera,renderer.domElement);
-            }
-
-            // var objLoader = new THREE.OBJLoader();
-            //     objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
-            //         mesh.traverse(function(node){
-            //             if(node instanceof THREE.Mesh){
-            //                 node.castShadow = true;
-            //                 node.receiveShadow = true;
-            //             }
-            //         });
-            //         scene.add(mesh);
-            //         mesh.position.set (-80, -50, -150);
-            //     });
-            
-            //     onst loader = new THREE.ObjectLoader();
-
-            loader.load(
-                // resource URL
-                "DAFT_PUNK_HELMETS.obj",
-
-                // onLoad callback
-                // Here the loaded data is assumed to be an object
-                function ( obj ) {
-                    // Add the loaded object to the scene
-                    scene.add( obj );
-                },
-
-                // onProgress callback
-                function ( xhr ) {
-                    console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-                },
-
-                // onError callback
-                function ( err ) {
-                    console.error( 'An error happened' );
+        var objLoader = new THREE.OBJLoader();
+        objLoader.load("DAFT_PUNK_HELMETS.obj", function(mesh){
+            mesh.traverse(function(node){
+                if (node instanceof THREE.Mesh){
+                    node.castShadow = true;
+                    node.receiveShadow = true;
                 }
-            );
-            
-            function animate (){
-                controls.update();
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
-            }
-		</script>
-	</body>
+            });
+            scene.add(mesh);
+            mesh.position.set(-80, -50, -150);
+            mesh.scale.set(0.1, 0.1, 0.1);
+            mesh.rotation.y = -Math.PI/4;
+        });
+
+        requestAnimationFrame(render);
+
+        function render() {
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+    </script>
+</body>
 </html>
