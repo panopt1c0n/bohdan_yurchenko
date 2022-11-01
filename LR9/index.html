@@ -25,22 +25,17 @@
         var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
         keyLight.position.set(-100, 0, 100);
 
-        var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
-        fillLight.position.set(100, 0, 100);
+        // var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
+        // fillLight.position.set(100, 0, 100);
 
-        var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        backLight.position.set(100, 0, -100).normalize();
+        // var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        // backLight.position.set(100, 0, -100).normalize();
 
         scene.add(keyLight);
-        scene.add(fillLight);
-        scene.add(backLight);
+        // scene.add(fillLight);
+        // scene.add(backLight);
 
-        var mtlLoader = new THREE.MTLLoader();
-        mtlLoader.load('r2-d2.mtl', function (materials) {
-
-            materials.preload();
-
-            var objLoader = new THREE.OBJLoader();
+        var objLoader = new THREE.OBJLoader();
             objLoader.setMaterials(materials);
             objLoader.load('r2-d2.obj', function (object) {
 
@@ -49,7 +44,14 @@
 
             });
 
-        });
+        // var mtlLoader = new THREE.MTLLoader();
+        // mtlLoader.load('r2-d2.mtl', function (materials) {
+
+        //     materials.preload();
+
+            
+
+        // });
 
         var animate = function () {
             requestAnimationFrame( animate );
