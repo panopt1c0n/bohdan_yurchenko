@@ -23,7 +23,7 @@
         controls.dampingFactor = 0.25;
         controls.enableZoom = true;
 
-        var lightOne = new THREE.PointLight(0xfffff, 0.5);
+        var lightOne = new THREE.PointLight(0xfffff, 1, 0, 1);
         scene.add(lightOne);
 
         var mtlLoader = new THREE.MTLLoader();
