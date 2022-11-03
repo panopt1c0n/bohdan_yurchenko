@@ -24,6 +24,7 @@
         controls.enableZoom = true;
 
         var lightOne = new THREE.PointLight(0xfffff, 1, 0, 1);
+        lightOne.position.y = 50;
         scene.add(lightOne);
 
         var mtlLoader = new THREE.MTLLoader();
