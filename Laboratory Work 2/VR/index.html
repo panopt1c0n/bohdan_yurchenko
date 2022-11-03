@@ -6,25 +6,25 @@
     <script src="https://threejs.org/build/three.js"></script>
     <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://threejs.org/examples/js/loaders/MTLLoader.js"></script>
-    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <!-- <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script> -->
     <script>
         var scene = new THREE.Scene();
-
+        
+        var z_pos = 150;
         var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-        camera.position.z = 200;
-        camera.position.y = 10;
+        camera.position.y = 20;
 
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( renderer.domElement );
 
-        var controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
-        controls.enableZoom = true;
+        // var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        // controls.enableDamping = true;
+        // controls.dampingFactor = 0.25;
+        // controls.enableZoom = true;
 
-        var lightOne = new THREE.PointLight(0xfffff, 1, 0, 1);
-        lightOne.position.y = 50;
+        var lightOne = new THREE.PointLight(0xfcb103, 3, 0, 0.5);
+        lightOne.position.y = 100;
         scene.add(lightOne);
 
         var mtlLoader = new THREE.MTLLoader();
@@ -39,7 +39,10 @@
 
         });
 
+        z_pos = 150;
         function render () {
+            z_pos-= 0.2;
+            camera.position.z = z_pos;
             renderer.render(scene, camera);
             requestAnimationFrame(render);
         }
