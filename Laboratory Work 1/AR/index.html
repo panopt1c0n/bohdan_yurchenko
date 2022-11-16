@@ -5,13 +5,11 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
     <a-scene embedded arjs>
-    <a-assets>
-        <a-asset-item id="pyr_model" src="pyramids.obj"></a-asset-item>
-    </a-assets>
-    
     <a-marker type="pattern" url="pattern-Giza.patt">
+        <a-assets>
+            <a-asset-item id="pyr_model" src="pyramids.obj"></a-asset-item>
+        </a-assets>
         <a-entity obj-model="obj: #pyr_model" material="src: brick_diffuse.jpg" scale="0.01 0.01 0.01" ></a-entity>
     </a-marker>
     </a-scene>
-
 </html>
